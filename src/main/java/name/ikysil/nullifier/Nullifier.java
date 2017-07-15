@@ -25,7 +25,26 @@ import javassist.util.proxy.MethodHandler;
 import javassist.util.proxy.ProxyFactory;
 
 /**
+ * Null-safe evaluation of getter chains where one or more elements in the chain can be null.
  *
+ * <p>
+ * Example usage:</p>
+ * <pre>D d = Nullifier.eval(Nullifier.root(a).getB().getC().getD());</pre>
+ *
+ * <p>
+ * The above code is equivalent to:</p>
+ * <pre>
+ *   D d = null;
+ *   if (a != null) {
+ *     B b = a.getB();
+ *     if (b != null) {
+ *       C c  = b.getC();
+ *       if (c != null) {
+ *         d = c.getD();
+ *       }
+ *     }
+ *   }
+ * </pre>
  *
  * @author Illya Kysil <ikysil@ikysil.name>
  */
